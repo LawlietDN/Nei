@@ -1,6 +1,6 @@
 #pragma once
-#include <vector>
 #include <iostream>
+#include "Utility/utility.h"
 
 
 namespace cli
@@ -9,21 +9,20 @@ namespace cli
     {
     private:
     std::vector<std::string> arguments;
-    static std::vector<std::pair<std::string, std::string>> commands;
-
-    std::string extraInfo = 
-        "For more description on each command enter nei --help\n"
-        "For a specific command: nei --help mark or the command you want.";
+    std::vector<std::pair<std::string, std::string>> commands = Utility::Helper::setCommandsVariable();
+    std::string extraInfo = Utility::Helper::setExtraInfoVariable();
 
     public:
         ArgumentParse();
         void parseArguments(int argc, char* argv[]);
-        std::vector<std::string> getArguments() const;
+        std::vector<std::string> getArguments();
         void displayUsage(std::ostream& os, std::vector<std::pair<std::string, std::string>>
 const& commands, std::string const& additionalInformation) const;
 
         int argumentValidator(char* argv[]);
-        static std::vector<std::pair<std::string, std::string>> getCommands();
+        std::vector<std::pair<std::string, std::string>> getCommands();
+        std::string getExtraInfo(); 
+        void InsufficientArgsMessage(std::ostream& os);
 
         
     };
