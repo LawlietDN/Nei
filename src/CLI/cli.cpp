@@ -35,15 +35,21 @@ const& commands, std::string const& additionalInformation) const
     int cli::ArgumentParse::argumentValidator(char* argv[])
     {
         std::vector<std::pair<std::string, std::string>> commands = cli::ArgumentParse::getCommands();
-        std::string secondCommandArgument = argv[2];
+        
+        if(cli::ArgumentParse::arguments.size() < 2)
+        {
+            std::cerr << "Error: Insufficient arguments.\n";
+        displayUsage(std::cerr, cli::ArgumentParse::commands, cli::ArgumentParse::extraInfo);
+        return 1;
+        }
+
+        std::string secondCommandArgument = argv[1];
         for(auto const& command: commands)
         {
-            if(command.first == secondCommandArgument);
+            if(command.first == secondCommandArgument)
             return 0;
         }
-        std::cerr << "Invalid commmand.\n";
-        displayUsage(std::cout, ArgumentParse::commands, ArgumentParse::extraInfo);
-        return 1;
+       
     }
 }
 
