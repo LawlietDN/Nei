@@ -1,8 +1,6 @@
-#ifndef TASKMANAGER.H
-#define TASKMANAGER.H
+#pragma once>
 
 class TaskManager
 {
     
 };
-#endif // TASKMANAGER.H

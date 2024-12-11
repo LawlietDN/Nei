@@ -1,15 +1,14 @@
-#include <string>
 #pragma once
+#include <iostream>
 
-namespace manage
+namespace update
 {
-    class task
-    {
+    class taskStruct
+{
 private:
-        int id;
-        std::string description;
-        std::string status;
-        std::string createdAt;
-        std::string updatedAt;
+    std::string description;
+    std::string status;
+    std::string createdAt;
+    std::string updatedAt;
     };
 }
