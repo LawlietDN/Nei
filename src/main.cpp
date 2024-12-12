@@ -1,12 +1,10 @@
 #include "Task/task.h"
-#include "CLI/cli.h"
+#include "Task Management/taskManger.h"
 
 
 int main(int argc, char* argv[])
 {
-    cli::ArgumentParse parser;
-
-    parser.parseArguments(argc, argv);
-    
+    util::TaskManager run;
+    run.manageTaskArguments(argc, argv);
     return 0;
 }   

@@ -1,18 +1,18 @@
-//CHANGE CLASS NAME TO A MORE SUITABLE ONE. COMMANDHANDLER
+//CHANGE CLASS NAME TO A MORE SUITABLE ONE. COMMANDHANDLER OR CLIMANAGER
 
 #include "cli.h"
 namespace cli
 {
       cli::ArgumentParse::ArgumentParse() = default;
    
-    void cli::ArgumentParse::parseArguments(int argc, char* argv[])
+     std::vector<std::string> cli::ArgumentParse::parseArguments(int argc, char* argv[])
     {
         for(int i = 1; i < argc; i++)
         {
             cli::ArgumentParse::arguments.emplace_back(argv[i]);
         }
         // After validation, send argv to the task handlers
-        cli::ArgumentParse::argumentValidator(argv);
+        return cli::ArgumentParse::argumentValidator(argv);
     }
 
                                                                 //Getter fucntions
@@ -35,21 +35,20 @@ namespace cli
     }
 
     
-    int cli::ArgumentParse::argumentValidator(char* argv[]) 
+    std::vector<std::string> cli::ArgumentParse::argumentValidator(char* argv[]) 
     {
         std::vector<std::pair<std::string, std::string>> commands = cli::ArgumentParse::getCommands();
         
         if(cli::ArgumentParse::arguments.size() < 2)
         {
-            if(argv[1] != nullptr && std::string(argv[1]) == "--help") { Utility::Helper::displayHelpCommand(); return 1;}
+            if(argv[1] != nullptr && std::string(argv[1]) == "--help") { Utility::Helper::displayHelpCommand(); return {};}
 
-            cli::ArgumentParse::InsufficientArgsMessage(std::cerr); return 1;
-            }
+            cli::ArgumentParse::InsufficientArgsMessage(std::cerr); return{};
         
-              if(!cli::ArgumentParse::isCommandExists(argv,commands)){return 1;}
-              
-       
+              if(!cli::ArgumentParse::isCommandExists(argv,commands)) { return{};}
     }
+    return  cli::ArgumentParse::convertArgvType(argv);
+}
 
     bool cli::ArgumentParse::isCommandExists(char* argv[], std::vector<std::pair<std::string, std::string>> const& commands) const
     {
@@ -63,6 +62,7 @@ namespace cli
         cli::ArgumentParse::invalidCommandMessage(std::cerr, userCommand);
         return false;
     }
+    
 
     
     void cli::ArgumentParse::InsufficientArgsMessage(std::ostream& os) const
@@ -84,9 +84,21 @@ namespace cli
         cli::ArgumentParse::displayUsage(std::cerr);
     }
 
-        char** cli::ArgumentParse::passArgument(char** argv = nullptr) const
+         std::vector<std::string> cli::ArgumentParse::passArgument(int argc, char* argv[]) 
         {
-            if(argv == nullptr) { return argv;}
+            return cli::ArgumentParse::parseArguments(argc, argv);
+            
         }
+
+
+          std::vector<std::string> cli::ArgumentParse::convertArgvType(char** argv) const
+          {
+            std::vector<std::string> processedArguments;
+            for (int i = 1; argv[i] != nullptr; ++i)
+            {
+                processedArguments.emplace_back(argv[i]); 
+            }
+            return processedArguments;
+          }
 
 }

@@ -17,15 +17,15 @@ namespace cli
         std::string getExtraInfo() const; 
         std::vector<std::string> getArguments() const;
 
-        void parseArguments(int argc, char* argv[]);
+        std::vector<std::string> parseArguments(int argc, char* argv[]);
         void displayUsage(std::ostream& os) const;
 
         bool isCommandExists(char* argv[], std::vector<std::pair<std::string, std::string>> const& commands) const;
-        int argumentValidator(char* argv[]);
+        std::vector<std::string> argumentValidator(char* argv[]);
         void InsufficientArgsMessage(std::ostream& os) const;
         void invalidCommandMessage(std::ostream& os, std::string const& command) const;
-        char** passArgument(char** argv = nullptr) const;
-
+        std::vector<std::string> passArgument(int argc, char* argv[]);
+        std::vector<std::string> convertArgvType(char** argv) const;
         
     };
 }
