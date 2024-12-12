@@ -3,60 +3,82 @@
 #include "cli.h"
 namespace cli
 {
-      cli::ArgumentParse::ArgumentParse() {
-        cli::ArgumentParse::extraInfo;
-        arguments.clear();
-    }
+      cli::ArgumentParse::ArgumentParse() = default;
+   
     void cli::ArgumentParse::parseArguments(int argc, char* argv[])
     {
         for(int i = 1; i < argc; i++)
         {
             cli::ArgumentParse::arguments.emplace_back(argv[i]);
         }
+        // After validation, send argv to the task handlers
         cli::ArgumentParse::argumentValidator(argv);
     }
 
-    std::vector<std::pair<std::string, std::string>> ArgumentParse::getCommands(){ return cli::ArgumentParse::commands;}
-    std::vector<std::string> cli::ArgumentParse::getArguments(){ return cli::ArgumentParse::arguments;}
-    std::string cli::ArgumentParse::getExtraInfo(){ return cli::ArgumentParse::extraInfo;}
+                                                                //Getter fucntions
+    std::vector<std::pair<std::string, std::string>> ArgumentParse::getCommands() const { return cli::ArgumentParse::commands;}
+    std::vector<std::string> cli::ArgumentParse::getArguments() const { return cli::ArgumentParse::arguments;}
+    std::string cli::ArgumentParse::getExtraInfo() const { return cli::ArgumentParse::extraInfo;}
 
 
-    void cli::ArgumentParse::displayUsage(std::ostream& os, std::vector<std::pair<std::string, std::string>>
-const& commands, std::string const& additionalInformation) const
+    void cli::ArgumentParse::displayUsage(std::ostream& os) const
     {
+        auto commands = cli::ArgumentParse::getCommands();
+        auto additionalInformation = cli::ArgumentParse::getExtraInfo();
         
         os << "Usage:\n";
         for(auto const& command: commands)
         {
             os << command.first << command.second;
         }
+        os << '\n' << additionalInformation << '\n';
     }
 
     
-    int cli::ArgumentParse::argumentValidator(char* argv[])
+    int cli::ArgumentParse::argumentValidator(char* argv[]) 
     {
         std::vector<std::pair<std::string, std::string>> commands = cli::ArgumentParse::getCommands();
         
-        if(cli::ArgumentParse::arguments.size() < 2) { InsufficientArgsMessage(std::cerr); return 1;}
+        if(cli::ArgumentParse::arguments.size() < 2) { cli::ArgumentParse::InsufficientArgsMessage(std::cerr); return 1;}
         
-        
-        std::string secondCommandArgument = argv[1];
-        for(auto const& command: commands)
-        {
-            if(command.first == secondCommandArgument)
-            {
+              if(!cli::ArgumentParse::isCommandExists(argv, cli::ArgumentParse::getCommands()))
+              {
 
-            }
-            return 0;
-        }
+              }
+              
        
     }
 
+    bool cli::ArgumentParse::isCommandExists(char* argv[], std::vector<std::pair<std::string, std::string>> const& commands) const
+    {
+        std::string userCommand = argv[1] + std::string(": ");
+        for(auto const& command: commands)
+        {
+            if(command.first == userCommand) {return true;}
+
+        }
+
+        cli::ArgumentParse::invalidCommandMessage(std::cerr, userCommand);
+        return false;
+    }
+
     
-    void cli::ArgumentParse::InsufficientArgsMessage(std::ostream& os)
+    void cli::ArgumentParse::InsufficientArgsMessage(std::ostream& os) const
     {
         
         os <<  "Error: Insufficient arguments.\n";
-        cli::ArgumentParse::displayUsage(std::cerr, cli::ArgumentParse::getCommands(), cli::ArgumentParse::getExtraInfo());
+        cli::ArgumentParse::displayUsage(std::cerr);
+    }
+
+    void cli::ArgumentParse::invalidCommandMessage(std::ostream& os, std::string const& command) const
+    {
+        std::string sanitizedCommand;
+        for (char c : command) {
+            if (c != ':') {
+                sanitizedCommand += c;
+        }
+    }
+        os << "Error: Command: " << sanitizedCommand << "iss Invalid\n";
+        cli::ArgumentParse::displayUsage(std::cerr);
     }
 }

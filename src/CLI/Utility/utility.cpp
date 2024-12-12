@@ -20,7 +20,7 @@ namespace Utility
     {
         std::string ExtraInfo =
         "For more description on each command enter nei --help\n"
-        "For a specific command: nei --help mark or the command you want.";
+        "For a specific command: nei --help {command}";
         return ExtraInfo;
     }
 }

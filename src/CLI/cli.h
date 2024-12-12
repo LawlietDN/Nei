@@ -9,20 +9,22 @@ namespace cli
     {
     private:
     std::vector<std::string> arguments;
-    std::vector<std::pair<std::string, std::string>> commands = Utility::Helper::setCommandsVariable();
-    std::string extraInfo = Utility::Helper::setExtraInfoVariable();
+    inline static const std::vector<std::pair<std::string, std::string>> commands = Utility::Helper::setCommandsVariable();
+    inline static const std::string extraInfo = Utility::Helper::setExtraInfoVariable();
 
     public:
-        ArgumentParse();
-        void parseArguments(int argc, char* argv[]);
-        std::vector<std::string> getArguments();
-        void displayUsage(std::ostream& os, std::vector<std::pair<std::string, std::string>>
-const& commands, std::string const& additionalInformation) const;
+        ArgumentParse();                //Getter functions
+        std::vector<std::pair<std::string, std::string>> getCommands() const;
+        std::string getExtraInfo() const; 
+        std::vector<std::string> getArguments() const;
 
+        void parseArguments(int argc, char* argv[]);
+        void displayUsage(std::ostream& os) const;
+
+        bool isCommandExists(char* argv[], std::vector<std::pair<std::string, std::string>> const& commands) const;
         int argumentValidator(char* argv[]);
-        std::vector<std::pair<std::string, std::string>> getCommands();
-        std::string getExtraInfo(); 
-        void InsufficientArgsMessage(std::ostream& os);
+        void InsufficientArgsMessage(std::ostream& os) const;
+        void invalidCommandMessage(std::ostream& os, std::string const& command) const;
 
         
     };
