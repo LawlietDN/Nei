@@ -1,5 +1,4 @@
 #pragma once
-#include <iostream>
 #include "Utility/utility.h"
 
 
@@ -25,6 +24,7 @@ namespace cli
         int argumentValidator(char* argv[]);
         void InsufficientArgsMessage(std::ostream& os) const;
         void invalidCommandMessage(std::ostream& os, std::string const& command) const;
+        char** passArgument(char** argv = nullptr) const;
 
         
     };

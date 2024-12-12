@@ -1,0 +1,32 @@
+Neix
+
+Commands:
+add,
+delete,
+list,
+mark,
+
+Command: add
+Usage:
+nei add {task} -desc {description}
+
+
+The `add` command adds a task to the task list. Both {task} and {description} must be enclosed in quotation marks if they contain spaces.
+The add command needs two additional arguments to be passed when called, one which is optional.
+The {task} argument is always neccessary, but the {description} argument is not and is optional for in case you want add additional informationt to the task. For example:
+nei add "Homework ssignment" -desc "This assignment must be done before 12 am." 
+you can omit the -desc argument if you don't plan on adding additional information.
+
+Examples:
+1. Single-word arguments with no spaces:
+   nei add TaskName Description
+
+2. Multi-word arguments with spaces:
+   nei add "This task" -desc"This is the description"
+
+   In this case:
+   - The task is "This task"
+   - The description is "This is the description"
+
+3. Combining everything into one argument:
+   nei add "This task and description in one"

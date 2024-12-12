@@ -39,12 +39,14 @@ namespace cli
     {
         std::vector<std::pair<std::string, std::string>> commands = cli::ArgumentParse::getCommands();
         
-        if(cli::ArgumentParse::arguments.size() < 2) { cli::ArgumentParse::InsufficientArgsMessage(std::cerr); return 1;}
-        
-              if(!cli::ArgumentParse::isCommandExists(argv, cli::ArgumentParse::getCommands()))
-              {
+        if(cli::ArgumentParse::arguments.size() < 2)
+        {
+            if(argv[1] != nullptr && std::string(argv[1]) == "--help") { Utility::Helper::displayHelpCommand(); return 1;}
 
-              }
+            cli::ArgumentParse::InsufficientArgsMessage(std::cerr); return 1;
+            }
+        
+              if(!cli::ArgumentParse::isCommandExists(argv,commands)){return 1;}
               
        
     }
@@ -78,7 +80,13 @@ namespace cli
                 sanitizedCommand += c;
         }
     }
-        os << "Error: Command: " << sanitizedCommand << "iss Invalid\n";
+        os << "Error: Command '" << sanitizedCommand << "' is not recognized.\n";
         cli::ArgumentParse::displayUsage(std::cerr);
     }
+
+        char** cli::ArgumentParse::passArgument(char** argv = nullptr) const
+        {
+            if(argv == nullptr) { return argv;}
+        }
+
 }

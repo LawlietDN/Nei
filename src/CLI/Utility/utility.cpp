@@ -1,6 +1,8 @@
-#include <vector>
-#include <string>
+
 #include "utility.h"
+#include <fstream>
+#include <filesystem> 
+
 namespace Utility
 {
 
@@ -19,8 +21,22 @@ namespace Utility
     std::string Utility::Helper::setExtraInfoVariable()
     {
         std::string ExtraInfo =
-        "For more description on each command enter nei --help\n"
+        "For more detailed description on how to use each command enter nei --help\n"
         "For a specific command: nei --help {command}";
         return ExtraInfo;
+    }
+
+    int Utility::Helper::displayHelpCommand()
+    {
+        std::string fileName =  "src/CLI/Utility/helpMessage.txt";
+        std::ifstream file(fileName);
+        std::string line;
+
+        if(!file) {std::cerr << "Unable to open file: " << fileName << '\n'; return 1;}
+
+         while (std::getline(file, line)) {
+            std::cout << line << '\n';
+        }
+        return 0;
     }
 }
