@@ -20,12 +20,13 @@ namespace cli
         std::vector<std::string> parseArguments(int argc, char* argv[]);
         void displayUsage(std::ostream& os) const;
 
-        bool isCommandExists(char* argv[], std::vector<std::pair<std::string, std::string>> const& commands) const;
+        bool isCommandExists(const std::vector<std::string>& args, const std::vector<std::pair<std::string, std::string>>& commands) const;
         std::vector<std::string> argumentValidator(char* argv[]);
         void InsufficientArgsMessage(std::ostream& os) const;
         void invalidCommandMessage(std::ostream& os, std::string const& command) const;
         std::vector<std::string> passArgument(int argc, char* argv[]);
         std::vector<std::string> convertArgvType(char** argv) const;
+        std::vector<std::string> validateAddCommand(std::vector<std::string> const& args);
         
     };
 }

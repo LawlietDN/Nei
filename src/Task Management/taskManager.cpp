@@ -12,10 +12,10 @@ namespace util
         std::vector<std::string> arguments = parser.passArgument(argc, argv);
         
          if (arguments.empty()) { return;}
-         
-        for(int i = 0; i < argc; i++)
-        {
-           std::cout << "\nArgument " << i << ": " << argv[i] << '\n';
-        }
+
+         for(auto argument: arguments)
+         {
+            std::cout << argument << '\n';
+         }
     }
 }

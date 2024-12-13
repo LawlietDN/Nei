@@ -38,7 +38,9 @@ namespace cli
     std::vector<std::string> cli::ArgumentParse::argumentValidator(char* argv[]) 
     {
         std::vector<std::pair<std::string, std::string>> commands = cli::ArgumentParse::getCommands();
-        if(!cli::ArgumentParse::isCommandExists(argv, commands)) { return{};}
+        std::vector<std::string> args = cli::ArgumentParse::convertArgvType(argv);
+
+        if(!cli::ArgumentParse::isCommandExists(args, commands)) { return{};}
 
         if(cli::ArgumentParse::arguments.size() < 2)
         {
@@ -46,32 +48,30 @@ namespace cli
             return{};
         
     }
-    return  cli::ArgumentParse::convertArgvType(argv);
+
+    if (args[0] == "add") { return cli::ArgumentParse::validateAddCommand(args);}
+
+    return  args;
 }
 
-    bool cli::ArgumentParse::isCommandExists(char* argv[], std::vector<std::pair<std::string, std::string>> const& commands) const
+    bool cli::ArgumentParse::isCommandExists(const std::vector<std::string>& args, const std::vector<std::pair<std::string, std::string>>& commands) const
+{
+    if (args.empty())
     {
-        if(cli::ArgumentParse::arguments.size() < 1)
-        {
-            cli::ArgumentParse::InsufficientArgsMessage(std::cerr);
-            return false;
-        }
-        if(argv[1] != nullptr && std::string(argv[1]) == "--help")
-            {
-                Utility::Helper::displayHelpCommand();
-                return {};
-            }
-        std::string userCommand = argv[1] + std::string(": ");
-        for(auto const& command: commands)
-        {
-            if(command.first == userCommand) {return true;}
-
-        }
-
-        cli::ArgumentParse::invalidCommandMessage(std::cerr, userCommand);
+        cli::ArgumentParse::InsufficientArgsMessage(std::cerr);
         return false;
     }
-    
+
+    std::string userCommand = args[0] + ": ";
+    for (const auto& command : commands)
+    {
+        if (command.first == userCommand) {return true;}
+    }
+
+    cli::ArgumentParse::invalidCommandMessage(std::cerr, userCommand);
+    return false;
+    }
+
 
     
     void cli::ArgumentParse::InsufficientArgsMessage(std::ostream& os) const
@@ -95,12 +95,12 @@ namespace cli
 
          std::vector<std::string> cli::ArgumentParse::passArgument(int argc, char* argv[]) 
         {
+
             return cli::ArgumentParse::parseArguments(argc, argv);
             
         }
 
-
-          std::vector<std::string> cli::ArgumentParse::convertArgvType(char** argv) const
+        std::vector<std::string> cli::ArgumentParse::convertArgvType(char** argv) const
           {
             std::vector<std::string> processedArguments;
             for (int i = 1; argv[i] != nullptr; ++i)
@@ -109,5 +109,28 @@ namespace cli
             }
             return processedArguments;
           }
+
+
+         std::vector<std::string> cli::ArgumentParse::validateAddCommand(std::vector<std::string> const& args)
+{
+   
+    std::vector<std::string> processedArguments;
+    processedArguments.push_back(args[0]); 
+    processedArguments.push_back(args[1]); 
+
+    for (size_t i = 2; i < args.size(); ++i) {
+        if (args[i] == "-desc") {
+            if (i + 1 < args.size()) {
+                processedArguments.push_back(args[i]);     
+                processedArguments.push_back(args[i + 1]); 
+            } else {
+                cli::ArgumentParse::InsufficientArgsMessage(std::cerr);
+                return {};
+            }
+        }
+    }
+
+    return processedArguments;
+}
 
 }
