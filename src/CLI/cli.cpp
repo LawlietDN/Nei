@@ -39,11 +39,12 @@ namespace cli
     {
         std::vector<std::pair<std::string, std::string>> commands = cli::ArgumentParse::getCommands();
         std::vector<std::string> args = cli::ArgumentParse::convertArgvType(argv);
-
+        if(argv[1] != nullptr && std::string(argv[1]) == "--help") { Utility::Helper::displayHelpCommand(); return {};}
         if(!cli::ArgumentParse::isCommandExists(args, commands)) { return{};}
 
         if(cli::ArgumentParse::arguments.size() < 2)
         {
+            
             cli::ArgumentParse::InsufficientArgsMessage(std::cerr);
             return{};
         
@@ -84,8 +85,10 @@ namespace cli
     void cli::ArgumentParse::invalidCommandMessage(std::ostream& os, std::string const& command) const
     {
         std::string sanitizedCommand;
-        for (char c : command) {
-            if (c != ':') {
+        for (char c : command)
+        {
+            if (c != ':')
+            {
                 sanitizedCommand += c;
         }
     }
@@ -118,12 +121,16 @@ namespace cli
     processedArguments.push_back(args[0]); 
     processedArguments.push_back(args[1]); 
 
-    for (size_t i = 2; i < args.size(); ++i) {
-        if (args[i] == "-desc") {
-            if (i + 1 < args.size()) {
+    for (size_t i = 2; i < args.size(); ++i)
+    {
+        if (args[i] == "-desc")
+        {
+            if (i + 1 < args.size())
+            {
                 processedArguments.push_back(args[i]);     
                 processedArguments.push_back(args[i + 1]); 
-            } else {
+            } else
+            {
                 cli::ArgumentParse::InsufficientArgsMessage(std::cerr);
                 return {};
             }
