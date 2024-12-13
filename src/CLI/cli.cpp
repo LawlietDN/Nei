@@ -38,20 +38,29 @@ namespace cli
     std::vector<std::string> cli::ArgumentParse::argumentValidator(char* argv[]) 
     {
         std::vector<std::pair<std::string, std::string>> commands = cli::ArgumentParse::getCommands();
-        
+        if(!cli::ArgumentParse::isCommandExists(argv, commands)) { return{};}
+
         if(cli::ArgumentParse::arguments.size() < 2)
         {
-            if(argv[1] != nullptr && std::string(argv[1]) == "--help") { Utility::Helper::displayHelpCommand(); return {};}
-
-            cli::ArgumentParse::InsufficientArgsMessage(std::cerr); return{};
+            cli::ArgumentParse::InsufficientArgsMessage(std::cerr);
+            return{};
         
-              if(!cli::ArgumentParse::isCommandExists(argv,commands)) { return{};}
     }
     return  cli::ArgumentParse::convertArgvType(argv);
 }
 
     bool cli::ArgumentParse::isCommandExists(char* argv[], std::vector<std::pair<std::string, std::string>> const& commands) const
     {
+        if(cli::ArgumentParse::arguments.size() < 1)
+        {
+            cli::ArgumentParse::InsufficientArgsMessage(std::cerr);
+            return false;
+        }
+        if(argv[1] != nullptr && std::string(argv[1]) == "--help")
+            {
+                Utility::Helper::displayHelpCommand();
+                return {};
+            }
         std::string userCommand = argv[1] + std::string(": ");
         for(auto const& command: commands)
         {

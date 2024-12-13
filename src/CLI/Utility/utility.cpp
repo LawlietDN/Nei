@@ -11,9 +11,10 @@ namespace Utility
 
         std::vector<std::pair<std::string, std::string>> commands = {
             {"add: ", "add [task] {description}\n"},
-            {"delete: ", "delete {taskid}\n"},
+            {"delete: ", "delete {taskID}\n"},
             {"list: ", "list, listd, listnd, listp\n"},
-            {"mark: ", "markp, markd\n"},
+            {"markd: ", "markd {taskID}\n"},
+            {"markp: ", "markp {taskID}\n"},
         };
         return commands;
     }

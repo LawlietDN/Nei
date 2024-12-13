@@ -1,4 +1,4 @@
-#include "taskManger.h"
+#include "taskManager.h"
 
 namespace util
 {
@@ -10,7 +10,9 @@ namespace util
     {
         cli::ArgumentParse parser;
         std::vector<std::string> arguments = parser.passArgument(argc, argv);
-        std::cout << "Arguments: " << argc << '\n';
+        
+         if (arguments.empty()) { return;}
+         
         for(int i = 0; i < argc; i++)
         {
            std::cout << "\nArgument " << i << ": " << argv[i] << '\n';
