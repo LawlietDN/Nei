@@ -3,12 +3,6 @@ namespace cmdHandle
 {
     cmdHandle::CommandHandler::CommandHandler() = default;
 
-    void cmdHandle::CommandHandler::InvalidIDmessage(std::ostream& os)
-    {
-        os << "Error: Invalid Task ID\n";
-        cli::ArgumentParse::displayUsage(std::cerr);
-    }
-
     std::vector<std::string> cmdHandle::CommandHandler::validateAddCommand(std::vector<std::string> const& args)
     {
         std::vector<std::string> processedArguments;
@@ -80,5 +74,50 @@ namespace cmdHandle
     }
 
 
+
+    std::vector<std::string> cmdHandle::CommandHandler::validateMarkPCommand(std::vector<std::string> const& args)
+    {
+        std::vector<std::string> processedArguments;
+
+        processedArguments.push_back(args[0]); 
     
+        if (args.size() > 1)
+        {
+            try
+            {
+                int taskID = std::stoi(args[1]);
+            }
+            catch(std::invalid_argument const& e)
+            {
+                cmdHandle::CommandHandler::InvalidIDmessage(std::cerr);
+                return {};
+            }
+            catch(std::out_of_range const& e)
+            {
+                cmdHandle::CommandHandler::InvalidIDmessage(std::cerr);
+                return {};
+            }
+            processedArguments.push_back(args[1]); 
+        }
+
+        else
+        {
+            cli::ArgumentParse::InsufficientArgsMessage(std::cerr);
+            return {};
+        }
+            return processedArguments;
+
+    }
+
+    int cmdHandle::CommandHandler::taskIDGenerator(int lastID)
+    {
+        return ++lastID;
+    }
+
+
+    void cmdHandle::CommandHandler::InvalidIDmessage(std::ostream& os)
+    {
+        os << "Error: Invalid Task ID\n";
+        cli::ArgumentParse::displayUsage(std::cerr);
+    }
 }
