@@ -37,6 +37,6 @@ namespace Utility
          while (std::getline(file, line)) {
             std::cout << line << '\n';
         }
-        return 0;
+        std::exit(1); //Same Issue here in cli.cpp, line 83.
     }
 }
