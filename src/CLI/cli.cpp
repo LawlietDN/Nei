@@ -23,10 +23,10 @@ namespace cli
 
     void cli::ArgumentParse::displayUsage(std::ostream& os) const
     {
-        auto commands = cli::ArgumentParse::getCommands();
+        auto cmdList = cli::ArgumentParse::getCommands();
         auto additionalInformation = cli::ArgumentParse::getExtraInfo();
         
-        os << "Usage:\n";
+        os << "Usage:\n";   
         for(auto const& command: commands)
         {
             os << command.first << command.second;
@@ -37,7 +37,7 @@ namespace cli
     
     std::vector<std::string> cli::ArgumentParse::argumentValidator(char* argv[]) 
     {
-        std::vector<std::pair<std::string, std::string>> commands = cli::ArgumentParse::getCommands();
+        std::vector<std::pair<std::string, std::string>> cmd = cli::ArgumentParse::getCommands();
         std::vector<std::string> args = cli::ArgumentParse::convertArgvType(argv);
         if(argv[1] != nullptr && std::string(argv[1]) == "--help") { Utility::Helper::displayHelpCommand(); return {};}
         if(!cli::ArgumentParse::isCommandExists(args, commands)) { return{};}
@@ -50,12 +50,12 @@ namespace cli
         
     }
 
-    if (args[0] == "add") { return cli::ArgumentParse::validateAddCommand(args);}
+    if (args[0] == "add") { return cmdHandle::CommandHandler::validateAddCommand(args);}
 
     return  args;
 }
 
-    bool cli::ArgumentParse::isCommandExists(const std::vector<std::string>& args, const std::vector<std::pair<std::string, std::string>>& commands) const
+    bool cli::ArgumentParse::isCommandExists(const std::vector<std::string>& args, const std::vector<std::pair<std::string, std::string>>& cmd)
 {
     if (args.empty())
     {
@@ -64,7 +64,7 @@ namespace cli
     }
 
     std::string userCommand = args[0] + ": ";
-    for (const auto& command : commands)
+    for (const auto& command : cmd)
     {
         if (command.first == userCommand) {return true;}
     }
@@ -82,7 +82,7 @@ namespace cli
         cli::ArgumentParse::displayUsage(std::cerr);
     }
 
-    void cli::ArgumentParse::invalidCommandMessage(std::ostream& os, std::string const& command) const
+    void cli::ArgumentParse::invalidCommandMessage(std::ostream& os, std::string const& command)
     {
         std::string sanitizedCommand;
         for (char c : command)
@@ -114,30 +114,6 @@ namespace cli
           }
 
 
-         std::vector<std::string> cli::ArgumentParse::validateAddCommand(std::vector<std::string> const& args)
-{
-   
-    std::vector<std::string> processedArguments;
-    processedArguments.push_back(args[0]); 
-    processedArguments.push_back(args[1]); 
-
-    for (size_t i = 2; i < args.size(); ++i)
-    {
-        if (args[i] == "-desc")
-        {
-            if (i + 1 < args.size())
-            {
-                processedArguments.push_back(args[i]);     
-                processedArguments.push_back(args[i + 1]); 
-            } else
-            {
-                cli::ArgumentParse::InsufficientArgsMessage(std::cerr);
-                return {};
-            }
-        }
-    }
-
-    return processedArguments;
-}
+         
 
 }

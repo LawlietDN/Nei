@@ -9,4 +9,4 @@ private:
         std::string status;
         std::string createdAt;
         std::string updatedAt;
-};
+    };

@@ -2,10 +2,7 @@
 
 namespace util
 {
-    util::TaskManager::TaskManager()
-    {
-
-    }
+    util::TaskManager::TaskManager() = default;
     void util::TaskManager::manageTaskArguments(int argc, char* argv[])
     {
         cli::ArgumentParse parser;

@@ -1,5 +1,6 @@
 #pragma once
 #include "Utility/utility.h"
+#include "CLI/Command-Validation/cmdValidator.h"
 
 
 namespace cli
@@ -12,7 +13,7 @@ namespace cli
     inline static const std::string extraInfo = Utility::Helper::setExtraInfoVariable();
 
     public:
-        ArgumentParse();                //Getter functions
+        ArgumentParse();                //Getter functionsg
         std::vector<std::pair<std::string, std::string>> getCommands() const;
         std::string getExtraInfo() const; 
         std::vector<std::string> getArguments() const;
@@ -20,13 +21,13 @@ namespace cli
         std::vector<std::string> parseArguments(int argc, char* argv[]);
         void displayUsage(std::ostream& os) const;
 
-        bool isCommandExists(const std::vector<std::string>& args, const std::vector<std::pair<std::string, std::string>>& commands) const;
+        bool isCommandExists(const std::vector<std::string>& args, const std::vector<std::pair<std::string, std::string>>& cmd);
         std::vector<std::string> argumentValidator(char* argv[]);
         void InsufficientArgsMessage(std::ostream& os) const;
-        void invalidCommandMessage(std::ostream& os, std::string const& command) const;
+        void invalidCommandMessage(std::ostream& os, std::string const& command);
         std::vector<std::string> passArgument(int argc, char* argv[]);
         std::vector<std::string> convertArgvType(char** argv) const;
-        std::vector<std::string> validateAddCommand(std::vector<std::string> const& args);
+        
         
     };
 }
