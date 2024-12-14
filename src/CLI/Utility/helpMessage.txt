@@ -19,7 +19,8 @@ you can omit the -desc argument if you don't plan on adding additional informati
 
 Examples:
 1. Single-word arguments with no spaces:
-   nei add TaskName Description
+   nei add TaskName -desc Description
+   - Here since the task name and description does not contain any word, you can omit the parenthesis.
 
 2. Multi-word arguments with spaces:
    nei add "This task" -desc" This is the description"
@@ -27,6 +28,4 @@ Examples:
    In this case:
    - The task is "This task"
    - The description is "This is the description"
-
-3. Combining everything into one argument:
-   nei add "This task and description in one"
+   - Since there are spaces here, you need the parenthesis for the input to be valid.
