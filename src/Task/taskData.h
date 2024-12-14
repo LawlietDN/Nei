@@ -1,14 +1,11 @@
 #pragma once
-#include <iostream>
+#include <string>
 
-namespace update
-{
-    class taskStruct
-{
-private:
+struct TaskData {
+    int taskID;
     std::string description;
     std::string status;
     std::string createdAt;
     std::string updatedAt;
-    };
-}
+};
+

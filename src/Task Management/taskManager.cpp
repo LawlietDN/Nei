@@ -1,5 +1,6 @@
 #include "taskManager.h"
 
+
 namespace util
 {
     util::TaskManager::TaskManager() = default;
@@ -7,8 +8,18 @@ namespace util
     {
         cli::ArgumentParse parser;
         std::vector<std::string> arguments = parser.passArgument(argc, argv);
+
+        if (arguments[0] == "add")
+        {
+            arguments = cmdHandle::CommandHandler::validateAddCommand(arguments);
+            }
+            else if(arguments[0] == "delete")
+            {
+                arguments = cmdHandle::CommandHandler::validateDeleteCommand(arguments);
+            }
+           
         
-         if (arguments.empty()) { return;}
+        
 
          for(auto argument: arguments)
          {

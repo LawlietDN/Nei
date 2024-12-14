@@ -22,7 +22,7 @@ Examples:
    nei add TaskName Description
 
 2. Multi-word arguments with spaces:
-   nei add "This task" -desc"This is the description"
+   nei add "This task" -desc" This is the description"
 
    In this case:
    - The task is "This task"

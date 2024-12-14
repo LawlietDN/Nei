@@ -1,10 +1,10 @@
-#include "task.h"
+#include "taskData.h"
 
 
 class task
     {
 private:
-        int id;
+        int taskID;
         std::string description;
         std::string status;
         std::string createdAt;

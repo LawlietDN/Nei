@@ -14,17 +14,17 @@ namespace cli
 
     public:
         ArgumentParse();                //Getter functionsg
-        std::vector<std::pair<std::string, std::string>> getCommands() const;
-        std::string getExtraInfo() const; 
-        std::vector<std::string> getArguments() const;
+        static std::vector<std::pair<std::string, std::string>> getCommands();
+        static std::string getExtraInfo();
+        std::vector<std::string> getArguments();
 
         std::vector<std::string> parseArguments(int argc, char* argv[]);
-        void displayUsage(std::ostream& os) const;
+        static void displayUsage(std::ostream& os);
 
         bool isCommandExists(const std::vector<std::string>& args, const std::vector<std::pair<std::string, std::string>>& cmd);
         std::vector<std::string> argumentValidator(char* argv[]);
-        void InsufficientArgsMessage(std::ostream& os) const;
-        void invalidCommandMessage(std::ostream& os, std::string const& command);
+        static void InsufficientArgsMessage(std::ostream& os);
+        static void invalidCommandMessage(std::ostream& os, std::string const& command);
         std::vector<std::string> passArgument(int argc, char* argv[]);
         std::vector<std::string> convertArgvType(char** argv) const;
         

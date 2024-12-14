@@ -9,7 +9,7 @@ namespace Utility
     {
 
         std::vector<std::pair<std::string, std::string>> commands = {
-            {"add: ", "add [task] {description}\n"},
+            {"add: ", "add [task] {-desc is optional, you can omit it if you want}--> -desc {description}\n"},
             {"delete: ", "delete {taskID}\n"},
             {"list: ", "list, listd, listnd, listp\n"},
             {"markd: ", "markd {taskID}\n"},

@@ -16,12 +16,12 @@ namespace cli
     }
 
                                                                 //Getter fucntions
-    std::vector<std::pair<std::string, std::string>> ArgumentParse::getCommands() const { return cli::ArgumentParse::commands;}
-    std::vector<std::string> cli::ArgumentParse::getArguments() const { return cli::ArgumentParse::arguments;}
-    std::string cli::ArgumentParse::getExtraInfo() const { return cli::ArgumentParse::extraInfo;}
+    std::vector<std::pair<std::string, std::string>> ArgumentParse::getCommands()  { return cli::ArgumentParse::commands;}
+    std::vector<std::string> cli::ArgumentParse::getArguments()  { return cli::ArgumentParse::arguments;}
+    std::string cli::ArgumentParse::getExtraInfo()  { return cli::ArgumentParse::extraInfo;}
 
 
-    void cli::ArgumentParse::displayUsage(std::ostream& os) const
+    void cli::ArgumentParse::displayUsage(std::ostream& os)
     {
         auto cmdList = cli::ArgumentParse::getCommands();
         auto additionalInformation = cli::ArgumentParse::getExtraInfo();
@@ -50,7 +50,7 @@ namespace cli
         
     }
 
-    if (args[0] == "add") { return cmdHandle::CommandHandler::validateAddCommand(args);}
+    // if (args[0] == "add") { return cmdHandle::CommandHandler::validateAddCommand(args);}
 
     return  args;
 }
@@ -75,11 +75,12 @@ namespace cli
 
 
     
-    void cli::ArgumentParse::InsufficientArgsMessage(std::ostream& os) const
+    void cli::ArgumentParse::InsufficientArgsMessage(std::ostream& os)
     {
         
         os <<  "Error: Insufficient arguments.\n";
         cli::ArgumentParse::displayUsage(std::cerr);
+        std::exit(1); //Have to use this because I missed a fatal problem that results in a segmentation error very very early in my code. Matter of fact, I don't even know where it originates from, It was blended with the error displaying functions I made.
     }
 
     void cli::ArgumentParse::invalidCommandMessage(std::ostream& os, std::string const& command)
@@ -94,6 +95,7 @@ namespace cli
     }
         os << "Error: Command '" << sanitizedCommand << "' is not recognized.\n";
         cli::ArgumentParse::displayUsage(std::cerr);
+        std::exit(1);
     }
 
          std::vector<std::string> cli::ArgumentParse::passArgument(int argc, char* argv[]) 
