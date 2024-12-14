@@ -1,12 +1,11 @@
 #include "taskData.h"
 
-
-class task
-    {
-private:
-        int taskID;
-        std::string description;
-        std::string status;
-        std::string createdAt;
-        std::string updatedAt;
-    };
+struct TaskData {
+    int taskID;
+    std::string task;
+    std::string description;
+    std::string status;
+    std::string createdAt;
+    std::string updatedAt;
+    std::vector<std::string> taskList;
+};
