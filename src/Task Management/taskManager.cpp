@@ -10,38 +10,58 @@ namespace util
         cli::ArgumentParse parser;
         std::vector<std::string> arguments = parser.passArgument(argc, argv);
 
+        util::TaskManager::manageCommands(arguments, TaskData);
+        std::cout << "Task is: " << TaskData.task << '\n';
+        std::cout << "Description is: " << TaskData.description << '\n';
+    }
+
+    void util::TaskManager::manageCommands(std::vector<std::string>& arguments, TaskData& TaskData)
+    {
+        util::TaskManager::addCommand(arguments, TaskData);
+        util::TaskManager::deleteCommand(arguments, TaskData);
+        util::TaskManager::markpCommand(arguments, TaskData);
+    }
+
+
+
+
+
+    void util::TaskManager::addCommand(std::vector<std::string>& arguments, TaskData& TaskData)
+    {
         if (arguments[0] == "add")
         {
             arguments = cmdHandle::CommandHandler::validateAddCommand(arguments);
             TaskData.task = arguments[1];
-            int lastID = 0;//parseLastID() //Implementing this soon
-            TaskData.taskID = cmdHandle::CommandHandler::taskIDGenerator(lastID);
+            // int lastID = 0;//parseLastID() //Implementing this soon
+            //TaskData.taskID = cmdHandle::CommandHandler::taskIDGenerator();
             if(arguments.size() > 2)
             {
                 TaskData.description = arguments[3];
             }
 
             }
-            else if(arguments[0] == "delete")
-            {
-                arguments = cmdHandle::CommandHandler::validateMarkpAndDeleteAndMarkdCommand(arguments);
-                TaskData.deleteID = std::stoi(arguments[1]);
-            }
-            else if(arguments[0] == "markp")
-            {
-                arguments = cmdHandle::CommandHandler::validateMarkpAndDeleteAndMarkdCommand(arguments);
-            }
-            else if(arguments[0] == "markd")
-            {
-                arguments = cmdHandle::CommandHandler::validateMarkpAndDeleteAndMarkdCommand(arguments);
-            }
+    }
 
-            std::cout << "Task is: " << TaskData.task << '\n';
-            std::cout << "Description is: " << TaskData.description << '\n';
-            std::cout << "Delete ID is: " << TaskData.deleteID << '\n';
-         for(auto argument: arguments)
-         {
-            std::cout << argument << '\n';
-         }
+    
+    void util::TaskManager::deleteCommand(std::vector<std::string>& arguments, TaskData& TaskData)
+    {
+        if(arguments[0] == "delete")
+            {
+                arguments = cmdHandle::CommandHandler::validateMarkpAndDeleteAndMarkdCommand(arguments);
+                if(arguments.size() > 1)
+                    {
+                        
+                }
+            }
+    }
+
+
+    void util::TaskManager::markpCommand(std::vector<std::string>& arguments, TaskData& TaskData)
+    {
+        if(arguments[0] == "markp")
+            {
+            arguments = cmdHandle::CommandHandler::validateMarkpAndDeleteAndMarkdCommand(arguments);
+            
+        }
     }
 }
