@@ -1,6 +1,7 @@
 
 #include "utility.h"
 #include <fstream>
+#include "cli.h" 
 
 namespace Utility
 {
@@ -38,5 +39,12 @@ namespace Utility
             std::cout << line << '\n';
         }
         std::exit(1); //Same Issue here in cli.cpp, line 83.
+    }
+
+    
+    void Utility::Helper::InvalidIDmessage(std::ostream& os)
+    {
+        os << "Error: Invalid Task ID\n";
+        cli::ArgumentParse::displayUsage(std::cerr);
     }
 }
