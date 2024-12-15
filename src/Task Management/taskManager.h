@@ -1,6 +1,7 @@
 #pragma once
 #include "CLI/cli.h"
 #include "Task/taskData.h"
+#include "JSON/json.h"
 namespace util
 {
     class TaskManager
