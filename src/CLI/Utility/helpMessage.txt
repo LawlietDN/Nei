@@ -1,4 +1,4 @@
-Neix
+Nei
 
 Commands:
 add,
