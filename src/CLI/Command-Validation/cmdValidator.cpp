@@ -15,7 +15,7 @@ namespace cmdHandle
         processedArguments.push_back(args[0]); 
         processedArguments.push_back(args[1]); 
 
-        for (size_t i = 2; i < args.size(); ++i)
+        for (size_t i = 2; i < args.size(); i++)
         {
             if (args[i] == "-desc")
             {
@@ -38,7 +38,7 @@ namespace cmdHandle
 
 
 
-    std::vector<std::string> cmdHandle::CommandHandler::validateMarkpAndDeleteAndMarkdCommand(std::vector<std::string> const& args)
+    std::vector<std::string> cmdHandle::CommandHandler::validateMarkpAndDeleteAndMarkdAndUpdateCommand(std::vector<std::string> const& args)
     {
         std::vector<std::string> processedArguments;
 

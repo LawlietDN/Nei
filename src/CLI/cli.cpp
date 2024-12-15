@@ -108,7 +108,7 @@ namespace cli
         std::vector<std::string> cli::ArgumentParse::convertArgvType(char** argv) const
           {
             std::vector<std::string> processedArguments;
-            for (int i = 1; argv[i] != nullptr; ++i)
+            for (int i = 1; argv[i] != nullptr; i++)
             {
                 processedArguments.emplace_back(argv[i]); 
             }
