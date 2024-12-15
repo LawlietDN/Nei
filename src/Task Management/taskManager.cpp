@@ -34,10 +34,14 @@ namespace util
             TaskData.task = arguments[1];
             // int lastID = 0;//parseLastID() //Implementing this soon
             //TaskData.taskID = cmdHandle::CommandHandler::taskIDGenerator();
+            TaskData.description = "None";
+            TaskData.status = "In-Progress";
             if(arguments.size() > 2)
             {
                 TaskData.description = arguments[3];
             }
+            TaskData.createdAt = Utility::Helper::getCurrentTime();
+            json::parse::parseToJson(TaskData);
 
             }
     }
