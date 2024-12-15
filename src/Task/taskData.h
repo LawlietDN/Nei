@@ -4,8 +4,7 @@
 
 
 struct TaskData {
-    int taskID;
-    int deleteID;
+    int taskID = 0;
     std::string task;
     std::string description;
     std::string status;

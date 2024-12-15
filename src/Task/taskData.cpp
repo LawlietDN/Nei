@@ -9,5 +9,4 @@ struct TaskData {
     std::string status;
     std::string createdAt;
     std::string updatedAt;
-    std::vector<std::string> taskList;
 };
