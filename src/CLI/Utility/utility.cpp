@@ -18,6 +18,7 @@ namespace Utility
             {"list: ", "list, listd, listnd, listp\n"},
             {"markd: ", "markd {taskID}\n"},
             {"markp: ", "markp {taskID}\n"},
+            {"update: ", "update {taskID}"}
         };
         return commands;
     }
@@ -56,7 +57,10 @@ namespace Utility
     std::string Utility::Helper::getCurrentTime() {
     time_t now = time(0);   
     char* dt = ctime(&now);
-    
-    return dt;
+    std::string timeString(dt);
+    if (!timeString.empty() && timeString.back() == '\n') {
+        timeString.pop_back();
+    }
+    return timeString;
 }
 }
