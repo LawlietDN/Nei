@@ -38,6 +38,7 @@ namespace Utility
          while (std::getline(file, line)) {
             std::cout << line << '\n';
         }
+        file.close();
         std::exit(1); //Same Issue here in cli.cpp, line 83.
     }
 
@@ -46,5 +47,6 @@ namespace Utility
     {
         os << "Error: Invalid Task ID\n";
         cli::ArgumentParse::displayUsage(std::cerr);
+        std::exit(1);
     }
 }
