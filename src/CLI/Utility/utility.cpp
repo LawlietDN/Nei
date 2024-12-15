@@ -2,6 +2,9 @@
 #include "utility.h"
 #include <fstream>
 #include "cli.h" 
+#include <ctime>
+#include <sstream>
+#include <iomanip>
 
 namespace Utility
 {
@@ -49,4 +52,11 @@ namespace Utility
         cli::ArgumentParse::displayUsage(std::cerr);
         std::exit(1);
     }
+
+    std::string Utility::Helper::getCurrentTime() {
+    time_t now = time(0);   
+    char* dt = ctime(&now);
+    
+    return dt;
+}
 }
