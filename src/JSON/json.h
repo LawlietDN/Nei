@@ -5,13 +5,16 @@
 
 
 
+
 namespace json
 {
     class parse
     {
+
+    public:
         parse();
 
-        int initializeJSONfile(std::string const& fileName);
-        void parseToJson();
+        static int initializeJSONfile(std::string const& fileName);
+        static void parseToJson(TaskData& TaskData);
     };
 }
