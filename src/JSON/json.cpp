@@ -8,41 +8,34 @@ namespace json
 
     void json::parse::parseToJson(TaskData& TaskData)
     {
-        
-        std::string fileName = "TaskList.json";
-        std::ofstream file(fileName);
-        std::ifstream ifile(fileName);
-        std::string existingContent, line;
+    initializeJSONfile(json::parse::fileName);
+    
+    std::ifstream ifile(json::parse::fileName);
+    std::string existingContent, line;
+    while (std::getline(ifile, line))
+    {
+        existingContent += line + "\n";
+    }
+    ifile.close();
 
-        initializeJSONfile(fileName);
-        while (std::getline(ifile, line)) {
-            existingContent += line;
-        }
-        ifile.close();
+   
+    std::string trimmedContent = json::parse::trimJSON(existingContent);
+    
 
-        if (!existingContent.empty() && existingContent.back() == ']') {
-            existingContent.pop_back(); 
-            if (existingContent.size() > 1) {
-                existingContent += ",\n"; 
-            }
-        } else {
-            existingContent = "[\n\n";                                          //INCOMPLETE
-        }
-        if(file)
-        {
-            file << existingContent;
-            file << "    {\n"
-                    << "        \"ID\": " << TaskData.taskID << ",\n"
-                    << "        \"Task Name\": \"" << TaskData.task << "\",\n"
-                    << "        \"Description\": \"" << TaskData.description << "\",\n"
-                    << "        \"Created_at\": \"" << TaskData.createdAt << "\",\n"
-                    << "        \"Updated_at\": \"" << TaskData.updatedAt << "\",\n"
-                    << "        \"status\": \"" << TaskData.status << "\"\n"
-                    << "    }";
+    trimmedContent += "    \n\t{\n"
+               "        \"ID\": " + std::to_string(TaskData.taskID) + ",\n"
+               "        \"Task Name\": \"" + TaskData.task + "\",\n"
+               "        \"Description\": \"" + TaskData.description + "\",\n"
+               "        \"Created_at\": \"" + TaskData.createdAt + "\",\n"
+               "        \"Updated_at\": \"" + TaskData.updatedAt + "\",\n"
+               "        \"status\": \"" + TaskData.status + "\"\n"
+               "    }";
 
-            file << "\n\n]";
-            file.close();
-        }
+    trimmedContent += "\n]";
+
+    std::ofstream file(json::parse::fileName);
+    file << trimmedContent;
+    file.close();
         
 
     }
@@ -56,4 +49,37 @@ namespace json
         newFile << "[]";
         newFile.close();
     }
-};
+
+
+    std::string json::parse::trimJSON(std::string const& existingContent)
+    {
+        std::string trimmedContent = existingContent;
+        if (!trimmedContent.empty())
+    {
+        while (isspace((unsigned char)trimmedContent.back()))
+        {
+            trimmedContent.pop_back();
+        }
+
+        if (trimmedContent.back() == ']')
+        {
+            trimmedContent.pop_back();
+
+            while ((trimmedContent.back() == '\n' || trimmedContent.back() == ','))
+            {
+                trimmedContent.pop_back();
+            }
+        }
+    }
+
+    if (trimmedContent.empty() || trimmedContent == "[") {
+        trimmedContent = "[";
+    }
+
+    if (trimmedContent.size() > 1) {
+        trimmedContent += ",";
+    }
+
+    return trimmedContent;
+    }
+}
