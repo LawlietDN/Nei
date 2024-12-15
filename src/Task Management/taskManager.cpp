@@ -20,6 +20,7 @@ namespace util
         util::TaskManager::addCommand(arguments, TaskData);
         util::TaskManager::deleteCommand(arguments, TaskData);
         util::TaskManager::markpCommand(arguments, TaskData);
+        util::TaskManager::updateCommand(arguments, TaskData);
     }
 
 
@@ -36,11 +37,10 @@ namespace util
             //TaskData.taskID = cmdHandle::CommandHandler::taskIDGenerator();
             TaskData.description = "None";
             TaskData.status = "In-Progress";
-            if(arguments.size() > 2)
-            {
-                TaskData.description = arguments[3];
-            }
+
+            if(arguments.size() > 2) { TaskData.description = arguments[3];}
             TaskData.createdAt = Utility::Helper::getCurrentTime();
+            TaskData.updatedAt = Utility::Helper::getCurrentTime();
             json::parse::parseToJson(TaskData);
 
             }
@@ -51,11 +51,8 @@ namespace util
     {
         if(arguments[0] == "delete")
             {
-                arguments = cmdHandle::CommandHandler::validateMarkpAndDeleteAndMarkdCommand(arguments);
-                if(arguments.size() > 1)
-                    {
-                        
-                }
+                arguments = cmdHandle::CommandHandler::validateMarkpAndDeleteAndMarkdAndUpdateCommand(arguments);
+            
             }
     }
 
@@ -64,8 +61,17 @@ namespace util
     {
         if(arguments[0] == "markp")
             {
-            arguments = cmdHandle::CommandHandler::validateMarkpAndDeleteAndMarkdCommand(arguments);
+            arguments = cmdHandle::CommandHandler::validateMarkpAndDeleteAndMarkdAndUpdateCommand(arguments);
             
         }
+    }
+
+    void util::TaskManager::updateCommand(std::vector<std::string>& arguments, TaskData& TaskData)
+    {
+        if(arguments[0] == "update")
+            {
+                arguments = cmdHandle::CommandHandler::validateMarkpAndDeleteAndMarkdAndUpdateCommand(arguments);
+                
+            }
     }
 }
