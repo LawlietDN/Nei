@@ -14,6 +14,7 @@ namespace Utility
          static std::string setExtraInfoVariable();
          static int displayHelpCommand();
          static void InvalidIDmessage(std::ostream& os);
+         static std::string getCurrentTime();
 
     };
 }
