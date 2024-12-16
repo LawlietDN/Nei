@@ -54,13 +54,19 @@ namespace Utility
         std::exit(1);
     }
 
-    std::string Utility::Helper::getCurrentTime() {
-    time_t now = time(0);   
-    char* dt = ctime(&now);
-    std::string timeString(dt);
-    if (!timeString.empty() && timeString.back() == '\n') {
-        timeString.pop_back();
+    std::string Utility::Helper::getCurrentTime()
+    {
+        time_t now = time(0);   
+        char* dt = ctime(&now);
+        std::string timeString(dt);
+        if (!timeString.empty() && timeString.back() == '\n') {timeString.pop_back();}
+
+        return timeString;
     }
-    return timeString;
-}
+
+
+    void Utility::Helper::displayTaskExistsMessage(std::ostream& os)
+    {
+        os << "Error: Task already exists.\n";
+    }
 }
