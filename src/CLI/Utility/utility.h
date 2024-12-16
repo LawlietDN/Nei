@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include "taskData.h"
 
 namespace Utility
 {
@@ -15,6 +16,6 @@ namespace Utility
          static int displayHelpCommand();
          static void InvalidIDmessage(std::ostream& os);
          static std::string getCurrentTime();
-
+         static void displayTaskExistsMessage(std::ostream& os);
     };
 }
