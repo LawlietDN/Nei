@@ -72,11 +72,6 @@ namespace cmdHandle
 
     
 
-    int cmdHandle::CommandHandler::taskIDGenerator(int lastID)
-    {
-        return ++lastID;
-    }
-
 
     
 }
