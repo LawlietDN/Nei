@@ -1,4 +1,5 @@
 #include "json.h"
+#include <iostream>
 
 
 namespace json
@@ -6,7 +7,7 @@ namespace json
     json::parse::parse() = default;
 
 
-    void json::parse::parseToJson(TaskData& TaskData)
+    void json::parse::parseToJSON(TaskData& TaskData)
     {
     initializeJSONfile(json::parse::fileName);
     
@@ -43,11 +44,13 @@ namespace json
 
     int json::parse::initializeJSONfile(std::string const& fileName)
     {
-        if(std::filesystem::exists(fileName)) {return 1;}
+        if(std::filesystem::exists(json::parse::fileName)) {return 1;}
 
-        std::ofstream newFile(fileName);
+        std::ofstream newFile(json::parse::fileName);
+        if(!newFile) {}
         newFile << "[]";
         newFile.close();
+        return 0;
     }
 
 
@@ -81,5 +84,64 @@ namespace json
     }
 
     return trimmedContent;
+    }
+
+
+    void json::parse::updateJSON(std::string const& argument, int ID)
+    {
+        if(argument == "delete")
+        {
+            std::cout << "Deleting Task with ID: " << ID;
+        }
+    }
+
+
+    int json::parse::getIncrementedLastID()
+    {
+        std::fstream file(json::parse::fileName);
+        std::string line;
+        int lastID = -1;
+
+        while(std::getline(file, line))
+        {
+            auto IDPostion = line.find("\"ID\":");
+            if(IDPostion != std::string::npos)
+            {
+                int currentID = 0;
+                std::stringstream ID(line.substr(IDPostion + 5));
+                ID >> currentID;
+
+                if(currentID > lastID){ lastID = currentID;}
+            }
+        }
+        file.close();
+        return lastID + 1;
+    }
+
+
+
+    bool json::parse::isTaskExist(std::string const& taskName)
+    {
+        std::fstream file(json::parse::fileName);
+        std::string line;
+
+        while(std::getline(file, line))
+        {
+            auto taskPostion = line.find("\"Task Name\":");
+
+            if(taskPostion != std::string::npos)
+            {
+
+            size_t startPostion = line.find(":") + 2;
+            size_t endPostion = line.rfind('"');
+            std::string currentTaskName = line.substr(startPostion + 1, endPostion - startPostion - 1);
+
+            if(currentTaskName == taskName)
+            {
+                return true;
+            }
+            }
+        }
+        return false;
     }
 }
