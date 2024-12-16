@@ -17,7 +17,10 @@ namespace json
         parse();
 
         static int initializeJSONfile(std::string const& fileName);
-        static void parseToJson(TaskData& TaskData);
+        static void parseToJSON(TaskData& TaskData);
         static std::string trimJSON(std::string const& existingContent);
+        static void updateJSON(std::string const& argument, int ID);
+        static int getIncrementedLastID();
+        static bool isTaskExist(std::string const& taskName);
     };
 }
