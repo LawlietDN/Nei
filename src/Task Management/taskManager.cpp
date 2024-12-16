@@ -1,6 +1,5 @@
 #include "taskManager.h"
 
-
 namespace util
 {
     util::TaskManager::TaskManager() = default;
@@ -9,10 +8,7 @@ namespace util
         TaskData TaskData;
         cli::ArgumentParse parser;
         std::vector<std::string> arguments = parser.passArgument(argc, argv);
-
         util::TaskManager::manageCommands(arguments, TaskData);
-        std::cout << "Task is: " << TaskData.task << '\n';
-        std::cout << "Description is: " << TaskData.description << '\n';
     }
 
     void util::TaskManager::manageCommands(std::vector<std::string>& arguments, TaskData& TaskData)
@@ -27,21 +23,22 @@ namespace util
 
 
 
-    void util::TaskManager::addCommand(std::vector<std::string>& arguments, TaskData& TaskData)
+    int util::TaskManager::addCommand(std::vector<std::string>& arguments, TaskData& TaskData)
     {
         if (arguments[0] == "add")
         {
             arguments = cmdHandle::CommandHandler::validateAddCommand(arguments);
+            if(json::parse::isTaskExist(arguments[1])) { Utility::Helper::displayTaskExistsMessage(std::cerr); return 1;}
             TaskData.task = arguments[1];
-            // int lastID = 0;//parseLastID() //Implementing this soon
-            //TaskData.taskID = cmdHandle::CommandHandler::taskIDGenerator();
+
             TaskData.description = "None";
             TaskData.status = "In-Progress";
 
             if(arguments.size() > 2) { TaskData.description = arguments[3];}
             TaskData.createdAt = Utility::Helper::getCurrentTime();
             TaskData.updatedAt = Utility::Helper::getCurrentTime();
-            json::parse::parseToJson(TaskData);
+            TaskData.taskID = json::parse::getIncrementedLastID();
+            json::parse::parseToJSON(TaskData);
 
             }
     }
@@ -52,7 +49,7 @@ namespace util
         if(arguments[0] == "delete")
             {
                 arguments = cmdHandle::CommandHandler::validateMarkpAndDeleteAndMarkdAndUpdateCommand(arguments);
-            
+                json::parse::updateJSON(arguments[0], std::stoi(arguments[1]));
             }
     }
 
