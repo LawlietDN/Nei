@@ -11,7 +11,7 @@ public:
 
      void manageTaskArguments(int argc, char* argv[]);
      void manageCommands(std::vector<std::string>& arguments, TaskData& TaskData);
-     void addCommand(std::vector<std::string>& arguments, TaskData& TaskData);
+     int addCommand(std::vector<std::string>& arguments, TaskData& TaskData);
      void deleteCommand(std::vector<std::string>& arguments, TaskData& TaskData);
      void updateCommand(std::vector<std::string>& arguments, TaskData& TaskData);
      void markpCommand(std::vector<std::string>& arguments, TaskData& TaskData);
