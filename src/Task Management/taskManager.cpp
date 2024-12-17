@@ -2,7 +2,6 @@
 
 namespace util
 {
-    util::TaskManager::TaskManager() = default;
     void util::TaskManager::manageTaskArguments(int argc, char* argv[])
     {
         TaskData TaskData;

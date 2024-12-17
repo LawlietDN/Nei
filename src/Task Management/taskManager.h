@@ -7,7 +7,6 @@ namespace util
     class TaskManager
     {
 public:
-    TaskManager();
 
      void manageTaskArguments(int argc, char* argv[]);
      void manageCommands(std::vector<std::string>& arguments, TaskData& TaskData);

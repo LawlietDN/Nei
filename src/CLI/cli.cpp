@@ -3,7 +3,6 @@
 #include "cli.h"
 namespace cli
 {
-      cli::ArgumentParse::ArgumentParse() = default;
    
      std::vector<std::string> cli::ArgumentParse::parseArguments(int argc, char* argv[])
     {
@@ -114,8 +113,4 @@ namespace cli
             }
             return processedArguments;
           }
-
-
-         
-
 }

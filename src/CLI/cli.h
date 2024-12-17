@@ -13,7 +13,7 @@ namespace cli
     inline static const std::string extraInfo = Utility::Helper::setExtraInfoVariable();
 
     public:
-        ArgumentParse();                //Getter functionsg
+                            //Getter functionsg
         static std::vector<std::pair<std::string, std::string>> getCommands();
         static std::string getExtraInfo();
         std::vector<std::string> getArguments();

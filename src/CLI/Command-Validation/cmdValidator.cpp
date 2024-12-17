@@ -1,7 +1,6 @@
 #include "cmdValidator.h"
 namespace cmdHandle
 {
-    cmdHandle::CommandHandler::CommandHandler() = default;
 
     std::vector<std::string> cmdHandle::CommandHandler::validateAddCommand(std::vector<std::string> const& args)
     {
@@ -66,12 +65,5 @@ namespace cmdHandle
         }
             return processedArguments;
 
-    }
-
-
-
-    
-
-
-    
+    }    
 }
