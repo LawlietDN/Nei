@@ -37,14 +37,18 @@ namespace cmdHandle
 
 
 
-    std::vector<std::string> cmdHandle::CommandHandler::validateMarkpAndDeleteAndMarkdAndUpdateCommand(std::vector<std::string> const& args)
+    std::vector<std::string> cmdHandle::CommandHandler::validateMarkpAndDeleteAndMarkdCommand(std::vector<std::string> const& args)
     {
         std::vector<std::string> processedArguments;
 
         processedArguments.push_back(args[0]); 
-        int taskID = 0;
-        if (args.size() > 1)
+        if (args.size() < 2)
         {
+            cli::ArgumentParse::InsufficientArgsMessage(std::cerr);
+            return {};
+        }
+        int taskID = 0;
+        
             try
             {
                  taskID = std::stoi(args[1]);
@@ -52,18 +56,28 @@ namespace cmdHandle
             catch(std::exception const& e)
             {
                 Utility::Helper::InvalidIDmessage(std::cerr);
-                return {};
+                return {}; 
             }
-            
-            processedArguments.push_back(args[1]); 
+            processedArguments.push_back(args[1]);
+             if (args[0] == "update")
+             {
+                if (args.size() > 2)
+                {
+            processedArguments.push_back(args[2]); // Add only the third argument
+                } 
+                else
+                {
+                    Utility::Helper::InvalidIDmessage(std::cerr);
+                }
         }
 
-        else
+
+        std::cout << "Validated Arguments: ";
+        for (const auto& arg : processedArguments)
         {
-            cli::ArgumentParse::InsufficientArgsMessage(std::cerr);
-            return {};
+        std::cout << arg << " ";
         }
             return processedArguments;
 
-    }    
+    }
 }
