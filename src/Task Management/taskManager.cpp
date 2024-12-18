@@ -2,11 +2,12 @@
 
 namespace util
 {
-    void util::TaskManager::manageTaskArguments(int argc, char* argv[])
+    int util::TaskManager::manageTaskArguments(int argc, char* argv[])
     {
         TaskData TaskData;
         cli::ArgumentParse parser;
-        std::vector<std::string> arguments = parser.passArgument(argc, argv);
+        std::vector<std::string> arguments = parser.parseArguments(argc, argv);
+        if(arguments.empty()) { return 1;}
         util::TaskManager::manageCommands(arguments, TaskData);
     }
 
@@ -47,8 +48,8 @@ namespace util
     {
         if(arguments[0] == "delete")
             {
-                arguments = cmdHandle::CommandHandler::validateMarkpAndDeleteAndMarkdAndUpdateCommand(arguments);
-                json::parse::updateJSON(arguments[0], std::stoi(arguments[1]));
+                arguments = cmdHandle::CommandHandler::validateMarkpAndDeleteAndMarkdCommand(arguments);
+                json::parse::updateJSON(arguments, std::stoi(arguments[1]), TaskData);
             }
     }
 
@@ -57,7 +58,7 @@ namespace util
     {
         if(arguments[0] == "markp")
             {
-            arguments = cmdHandle::CommandHandler::validateMarkpAndDeleteAndMarkdAndUpdateCommand(arguments);
+            arguments = cmdHandle::CommandHandler::validateMarkpAndDeleteAndMarkdCommand(arguments);
             
         }
     }
@@ -66,8 +67,9 @@ namespace util
     {
         if(arguments[0] == "update")
             {
-                arguments = cmdHandle::CommandHandler::validateMarkpAndDeleteAndMarkdAndUpdateCommand(arguments);
-                
+                arguments = cmdHandle::CommandHandler::validateMarkpAndDeleteAndMarkdCommand(arguments);
+               
+                json::parse::updateJSON(arguments, std::stoi(arguments[1]), TaskData);
             }
     }
 }
