@@ -19,7 +19,6 @@
 
     
         std::string trimmedContent = json::parse::trimJSON(existingContent);
-        
 
         trimmedContent += "    \n\t{\n"
                 "        \"ID\": " + std::to_string(TaskData.taskID) + ",\n"
@@ -85,12 +84,17 @@
         }
 
 
-        void json::parse::updateJSON(std::string const& argument, int ID)
+        void json::parse::updateJSON(std::vector<std::string> const& argument, int ID,  TaskData& TaskData)
         {
-            if(argument == "delete")
+            if(argument[0] == "delete")
             {
                 if(!json::parse::isIDExist(ID)) {Utility::Helper::InvalidIDmessage(std::cerr);}
                 json::parse::deleteTask(ID);
+            }
+            else if(argument[0] == "update")
+            {
+                if(!json::parse::isIDExist(ID)) {Utility::Helper::InvalidIDmessage(std::cerr);}
+                json::parse::updateTask(argument[2], ID, TaskData);
             }
         }
 
@@ -190,15 +194,14 @@
                 std::string task = fileContent.substr(start, end - start + 1);
 
                 size_t IDpostion = task.find("\"ID\":");
-                if (IDpostion != std::string::npos)
-                {
+               
                     int currentID = std::stoi(task.substr(IDpostion + 5));
                     if (currentID == taskID)
                     {
                         pos = end + 1; 
                         continue;
                     }
-                }
+                
                 if (!first)
                 {
                     newContent << ",\n";
@@ -227,6 +230,43 @@
             file.close();
             return convertedFile;
         }
-   
+
+
+        void json::parse::displayTaskList() 
+        {
+            std::ifstream file(json::parse::fileName);
+            std::string line;
+            while(std::getline(file, line))
+            {
+                std::cout << line << '\n';
+            }
+        }
+
+        void json::parse::updateTask(std::string const& argument, int taskID, TaskData& TaskData)
+         {
+                std::vector<std::string> taskJSONFile = loadFileToVector();
+
+
+                for(int i = 0; i < taskJSONFile.size(); i++)
+                {
+                      if (taskJSONFile[i].find("\"ID\": " + std::to_string(taskID)) != std::string::npos)
+                      {
+                        taskJSONFile[i + 1] = "        \"Task Name\": \"" + argument + "\",";
+                         taskJSONFile[i + 4] = "        \"Updated at\": \"" + Utility::Helper::getCurrentTime() + "\",";
+                        break; 
+                     }
+                }
+                
+                std::ofstream ofile(json::parse::fileName);
+                for(auto const& content: taskJSONFile)
+                {
+                    ofile << content << '\n';
+                }
+                ofile.close();
+         }
+
+
+
+         
     }
 
