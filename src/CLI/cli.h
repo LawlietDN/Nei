@@ -1,6 +1,7 @@
 #pragma once
 #include "utility.h"
 #include "CLI/Command-Validation/cmdValidator.h"
+#include "JSON/json.h"
 
 
 namespace cli
@@ -25,7 +26,6 @@ namespace cli
         std::vector<std::string> argumentValidator(char* argv[]);
         static void InsufficientArgsMessage(std::ostream& os);
         static void invalidCommandMessage(std::ostream& os, std::string const& command);
-        std::vector<std::string> passArgument(int argc, char* argv[]);
         std::vector<std::string> convertArgvType(char** argv) const;
         
         
