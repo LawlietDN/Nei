@@ -15,7 +15,10 @@ namespace Utility
         std::vector<std::pair<std::string, std::string>> commands = {
             {"add: ", "add [task] {-desc is optional, you can omit it if you want}--> -desc {description}\n"},
             {"delete: ", "delete {taskID}\n"},
-            {"list: ", "list, listd, listnd, listp\n"},
+            {"list: ", "Lists all tasks\n"},
+            {"lisd: ", "Lists all tasks that are done.\n"},
+            {"listnd: ", "Lists all tasks that are not done.\n"},
+            {"listp: ", "Lists all tasks that are in progress.\n"},
             {"markd: ", "markd {taskID}\n"},
             {"markp: ", "markp {taskID}\n"},
             {"update: ", "update {taskID}"}
@@ -43,7 +46,6 @@ namespace Utility
             std::cout << line << '\n';
         }
         file.close();
-        std::exit(1); //Same Issue here in cli.cpp, line 83.
     }
 
     
@@ -51,7 +53,7 @@ namespace Utility
     {
         os << "Error: Invalid Task ID\n";
         cli::ArgumentParse::displayUsage(std::cerr);
-        std::exit(1);
+        std::exit(1); //Forced to use it for now.
     }
 
     std::string Utility::Helper::getCurrentTime()
@@ -69,4 +71,6 @@ namespace Utility
     {
         os << "Error: Task already exists.\n";
     }
+
+    
 }
