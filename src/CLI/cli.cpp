@@ -10,7 +10,7 @@ namespace cli
         {
             cli::ArgumentParse::arguments.emplace_back(argv[i]);
         }
-        // After validation, send argv to the task handlers
+        // After validation, send argv to the task handlers        
         return cli::ArgumentParse::argumentValidator(argv);
     }
 
@@ -39,6 +39,8 @@ namespace cli
         std::vector<std::pair<std::string, std::string>> cmd = cli::ArgumentParse::getCommands();
         std::vector<std::string> args = cli::ArgumentParse::convertArgvType(argv);
         if(argv[1] != nullptr && std::string(argv[1]) == "--help") { Utility::Helper::displayHelpCommand(); return {};}
+        if(argv[1] != nullptr && std::string(argv[1]) == "list") { json::parse::displayTaskList(); return {};}
+        
         if(!cli::ArgumentParse::isCommandExists(args, commands)) { return{};}
 
         if(cli::ArgumentParse::arguments.size() < 2)
@@ -48,8 +50,6 @@ namespace cli
             return{};
         
     }
-
-    // if (args[0] == "add") { return cmdHandle::CommandHandler::validateAddCommand(args);}
 
     return  args;
 }
@@ -79,7 +79,6 @@ namespace cli
         
         os <<  "Error: Insufficient arguments.\n";
         cli::ArgumentParse::displayUsage(std::cerr);
-        std::exit(1); //Have to use this because I missed a fatal problem that results in a segmentation error very very early in my code. Matter of fact, I don't even know where it originates from, It was blended with the error displaying functions I made.
     }
 
     void cli::ArgumentParse::invalidCommandMessage(std::ostream& os, std::string const& command)
@@ -97,12 +96,6 @@ namespace cli
         std::exit(1);
     }
 
-         std::vector<std::string> cli::ArgumentParse::passArgument(int argc, char* argv[]) 
-        {
-
-            return cli::ArgumentParse::parseArguments(argc, argv);
-            
-        }
 
         std::vector<std::string> cli::ArgumentParse::convertArgvType(char** argv) const
           {
