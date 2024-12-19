@@ -16,10 +16,10 @@ namespace Utility
             {"add: ", "add [task] {-desc is optional, you can omit it if you want}--> -desc {description}\n"},
             {"delete: ", "delete {taskID}\n"},
             {"list: ", "Lists all tasks\n"},
-            {"lisd: ", "Lists all tasks that are done.\n"},
+            {"listc: ", "Lists all tasks that are done.\n"},
             {"listnd: ", "Lists all tasks that are not done.\n"},
             {"listp: ", "Lists all tasks that are in progress.\n"},
-            {"markd: ", "markd {taskID}\n"},
+            {"markc: ", "markc {taskID}\n"},
             {"markp: ", "markp {taskID}\n"},
             {"update: ", "update {taskID}"}
         };
@@ -29,8 +29,7 @@ namespace Utility
     std::string Utility::Helper::setExtraInfoVariable()
     {
         std::string ExtraInfo =
-        "For more detailed description on how to use each command enter nei --help\n"
-        "For a specific command: nei --help {command}";
+        "For more detailed description on how to use each command enter nei --help\n";
         return ExtraInfo;
     }
 
