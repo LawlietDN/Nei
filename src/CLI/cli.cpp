@@ -40,7 +40,8 @@ namespace cli
         std::vector<std::string> args = cli::ArgumentParse::convertArgvType(argv);
         if(argv[1] != nullptr && std::string(argv[1]) == "--help") { Utility::Helper::displayHelpCommand(); return {};}
         if(argv[1] != nullptr && std::string(argv[1]) == "list") { json::parse::displayTaskList(); return {};}
-        
+        if(argv[1] != nullptr && std::string(argv[1]) == "listc") { json::parse::displayCompletedTasks(); return {};}
+
         if(!cli::ArgumentParse::isCommandExists(args, commands)) { return{};}
 
         if(cli::ArgumentParse::arguments.size() < 2)
