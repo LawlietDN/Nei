@@ -9,14 +9,17 @@ namespace util
         std::vector<std::string> arguments = parser.parseArguments(argc, argv);
         if(arguments.empty()) { return 1;}
         util::TaskManager::manageCommands(arguments, TaskData);
+        return 0;
     }
 
     void util::TaskManager::manageCommands(std::vector<std::string>& arguments, TaskData& TaskData)
     {
         util::TaskManager::addCommand(arguments, TaskData);
-        util::TaskManager::deleteCommand(arguments, TaskData);
-        util::TaskManager::markpCommand(arguments, TaskData);
-        util::TaskManager::updateCommand(arguments, TaskData);
+        util::TaskManager::deleteCommand(arguments);
+        util::TaskManager::markpCommand(arguments);
+        util::TaskManager::updateCommand(arguments);
+        util::TaskManager::markdCommand(arguments);
+        
     }
 
 
@@ -32,7 +35,7 @@ namespace util
             TaskData.task = arguments[1];
 
             TaskData.description = "None";
-            TaskData.status = "In-Progress";
+            TaskData.status = "Not-Done";
 
             if(arguments.size() > 2) { TaskData.description = arguments[3];}
             TaskData.createdAt = Utility::Helper::getCurrentTime();
@@ -44,32 +47,42 @@ namespace util
     }
 
     
-    void util::TaskManager::deleteCommand(std::vector<std::string>& arguments, TaskData& TaskData)
+    void util::TaskManager::deleteCommand(std::vector<std::string>& arguments)
     {
         if(arguments[0] == "delete")
             {
-                arguments = cmdHandle::CommandHandler::validateMarkpAndDeleteAndMarkdCommand(arguments);
-                json::parse::updateJSON(arguments, std::stoi(arguments[1]), TaskData);
+                arguments = cmdHandle::CommandHandler::validateMarkpAndDeleteAndMarkdAndUpdateCommand(arguments);
+                json::parse::updateJSON(arguments, std::stoi(arguments[1]));
             }
     }
 
 
-    void util::TaskManager::markpCommand(std::vector<std::string>& arguments, TaskData& TaskData)
+    void util::TaskManager::markpCommand(std::vector<std::string>& arguments)
     {
         if(arguments[0] == "markp")
             {
-            arguments = cmdHandle::CommandHandler::validateMarkpAndDeleteAndMarkdCommand(arguments);
-            
+            arguments = cmdHandle::CommandHandler::validateMarkpAndDeleteAndMarkdAndUpdateCommand(arguments);
+            json::parse::updateJSON(arguments, std::stoi(arguments[1]));
         }
     }
 
-    void util::TaskManager::updateCommand(std::vector<std::string>& arguments, TaskData& TaskData)
+    void util::TaskManager::updateCommand(std::vector<std::string>& arguments)
     {
         if(arguments[0] == "update")
             {
-                arguments = cmdHandle::CommandHandler::validateMarkpAndDeleteAndMarkdCommand(arguments);
-               
-                json::parse::updateJSON(arguments, std::stoi(arguments[1]), TaskData);
+                arguments = cmdHandle::CommandHandler::validateMarkpAndDeleteAndMarkdAndUpdateCommand(arguments);
+                json::parse::updateJSON(arguments, std::stoi(arguments[1]));
             }
     }
+    void util::TaskManager::markdCommand(std::vector<std::string>& arguments)
+    {
+        if(arguments[0] == "markc")
+            {
+                arguments = cmdHandle::CommandHandler::validateMarkpAndDeleteAndMarkdAndUpdateCommand(arguments);
+               
+                json::parse::updateJSON(arguments, std::stoi(arguments[1]));
+            }
+    }
+
+    
 }
