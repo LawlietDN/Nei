@@ -37,7 +37,7 @@ namespace cmdHandle
 
 
 
-    std::vector<std::string> cmdHandle::CommandHandler::validateMarkpAndDeleteAndMarkdCommand(std::vector<std::string> const& args)
+    std::vector<std::string> cmdHandle::CommandHandler::validateMarkpAndDeleteAndMarkdAndUpdateCommand(std::vector<std::string> const& args)
     {
         std::vector<std::string> processedArguments;
 
@@ -59,12 +59,13 @@ namespace cmdHandle
                 return {}; 
             }
             processedArguments.push_back(args[1]);
+            
              if (args[0] == "update")
              {
                 if (args.size() > 2)
                 {
-            processedArguments.push_back(args[2]); // Add only the third argument
-                } 
+            processedArguments.push_back(args[2]); 
+                }
                 else
                 {
                     Utility::Helper::InvalidIDmessage(std::cerr);
