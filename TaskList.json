@@ -1,18 +1,26 @@
-[    
+[
 	{
         "ID": 0,
         "Task Name": "Completing assignment A",
         "Description": "Deadline 16th of Dec",
         "Created_at": "Sun Dec 15 22:47:43 2024",
-        "Updated_at": "Sun Dec 15 22:47:43 2024",
-        "status": "In-Progress"
-    },    
+        "Updated at": "Thu Dec 19 11:42:45 2024",
+        "Status": "Completed"
+    },
 	{
         "ID": 1,
         "Task Name": "Feed the cats",
         "Description": "None",
         "Created_at": "Tue Dec 17 15:55:49 2024",
-        "Updated_at": "Tue Dec 17 15:55:49 2024",
-        "status": "In-Progress"
+        "Updated at": "Thu Dec 19 12:11:57 2024",
+        "Status": "Completed"
+    },    
+	{
+        "ID": 2,
+        "Task Name": "Memorize philosophical quotes",
+        "Description": "None",
+        "Created_at": "Thu Dec 19 11:47:08 2024",
+        "Updated_at": "Thu Dec 19 11:47:08 2024",
+        "Status": "Not Done"
     }
 ]
