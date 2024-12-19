@@ -26,7 +26,7 @@
                 "        \"Description\": \"" + TaskData.description + "\",\n"
                 "        \"Created_at\": \"" + TaskData.createdAt + "\",\n"
                 "        \"Updated_at\": \"" + TaskData.updatedAt + "\",\n"
-                "        \"status\": \"" + TaskData.status + "\"\n"
+                "        \"Status\": \"" + TaskData.status + "\"\n"
                 "    }";
 
         trimmedContent += "\n]";
@@ -84,7 +84,7 @@
         }
 
 
-        void json::parse::updateJSON(std::vector<std::string> const& argument, int ID,  TaskData& TaskData)
+        void json::parse::updateJSON(std::vector<std::string> const& argument, int ID)
         {
             if(argument[0] == "delete")
             {
@@ -94,7 +94,17 @@
             else if(argument[0] == "update")
             {
                 if(!json::parse::isIDExist(ID)) {Utility::Helper::InvalidIDmessage(std::cerr);}
-                json::parse::updateTask(argument[2], ID, TaskData);
+                json::parse::updateTask(argument[2], ID);
+            }
+            else if(argument[0] == "markp")
+            {
+                if(!json::parse::isIDExist(ID)) {Utility::Helper::InvalidIDmessage(std::cerr);}
+                json::parse::markpTask(argument[2], ID);
+            }
+            else if(argument[0] == "markc")
+            {
+                if(!json::parse::isIDExist(ID)) {Utility::Helper::InvalidIDmessage(std::cerr);}
+                json::parse::markdTask(argument[2], ID);
             }
         }
 
@@ -242,9 +252,9 @@
             }
         }
 
-        void json::parse::updateTask(std::string const& argument, int taskID, TaskData& TaskData)
+        void json::parse::updateTask(std::string const& argument, int taskID)
          {
-                std::vector<std::string> taskJSONFile = loadFileToVector();
+                std::vector<std::string> taskJSONFile = json::parse::loadFileToVector();
 
 
                 for(int i = 0; i < taskJSONFile.size(); i++)
@@ -266,7 +276,56 @@
          }
 
 
+         void json::parse::markpTask(std::string const& argument, int taskID)
+         {
+                std::vector<std::string> taskJSONFile = json::parse::loadFileToVector();
 
-         
+                for(int i = 0; i < taskJSONFile.size(); i++)
+                {
+                      if (taskJSONFile[i].find("\"ID\": " + std::to_string(taskID)) != std::string::npos)
+                      {
+                         taskJSONFile[i + 4] = "        \"Updated at\": \"" + Utility::Helper::getCurrentTime() + "\",";
+                         taskJSONFile[i + 5] = "        \"Status\": \"""In-Progress""\"";
+                        break; 
+                     }
+                }
+                
+                std::ofstream ofile(json::parse::fileName);
+                for(auto const& content: taskJSONFile)
+                {
+                    ofile << content << '\n';
+                }
+                ofile.close();
+         }
+
+         void json::parse::markdTask(std::string const& argument, int taskID)
+         {
+            std::vector<std::string> taskJSONFile = json::parse::loadFileToVector();
+                
+                for(int i = 0; i < taskJSONFile.size(); i++)
+                {
+                      if (taskJSONFile[i].find("\"ID\": " + std::to_string(taskID)) != std::string::npos)
+                      {
+                         taskJSONFile[i + 4] = "        \"Updated at\": \"" + Utility::Helper::getCurrentTime() + "\",";
+                         taskJSONFile[i + 5] = "        \"Status\": \"""Completed""\"";
+                        break; 
+                     }
+                }
+                
+                std::ofstream ofile(json::parse::fileName);
+                for(auto const& content: taskJSONFile)
+                {
+                    ofile << content << '\n';
+                }
+                ofile.close();
+         }
+
+
+         void json::parse::displayCompletedTasks()
+         {
+            
+         }
+
+
     }
 
