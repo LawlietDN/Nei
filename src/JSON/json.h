@@ -20,14 +20,16 @@ namespace json
         static int initializeJSONfile();
         static void parseToJSON(TaskData& TaskData);
         static std::string trimJSON(std::string const& existingContent);
-        static void updateJSON(std::vector<std::string> const& argument, int ID, TaskData& TaskData);
+        static void updateJSON(std::vector<std::string> const& argument, int ID);
         static int getIncrementedLastID();
         static bool isTaskExist(std::string const& taskName);
         static bool isIDExist(int taskID);
         static void deleteTask(int taskID);
         static std::vector<std::string> loadFileToVector();
         static void displayTaskList();
-        static void updateTask(std::string const& argument, int taskID,  TaskData& TaskData);
-
+        static void updateTask(std::string const& argument, int taskID);
+        static void markpTask(std::string const& argument, int taskID);
+        static void markdTask(std::string const& argument, int taskID);
+        static void displayCompletedTasks();
     };
 }
