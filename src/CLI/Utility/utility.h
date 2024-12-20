@@ -13,7 +13,7 @@ namespace Utility
     public:
          static std::vector<std::pair<std::string, std::string>> setCommandsVariable();
          static std::string setExtraInfoVariable();
-         static int displayHelpCommand();
+         static void displayHelpCommand();
          static void InvalidIDmessage(std::ostream& os);
          static std::string getCurrentTime();
          static void displayTaskExistsMessage(std::ostream& os);

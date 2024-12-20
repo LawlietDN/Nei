@@ -33,13 +33,11 @@ namespace Utility
         return ExtraInfo;
     }
 
-    int Utility::Helper::displayHelpCommand()
+    void Utility::Helper::displayHelpCommand()
     {
         std::string fileName =  "src/CLI/Utility/helpMessage.txt";
         std::ifstream file(fileName);
         std::string line;
-
-        if(!file) {std::cerr << "Unable to open file: " << fileName << '\n'; return 1;}
 
          while (std::getline(file, line)) {
             std::cout << line << '\n';
