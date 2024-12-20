@@ -1,10 +1,15 @@
 Nei
 
 Commands:
-add,
-delete,
-list,
-mark,
+add
+delete
+list
+listc
+listnd
+listp
+markc
+markp
+update
 
 Command: add
 Usage:
@@ -29,3 +34,73 @@ Examples:
    - The task is "This task"
    - The description is "This is the description"
    - Since there are spaces here, you need the parenthesis for the input to be valid.
+
+
+
+Command: delete
+Usage:
+nei delete {taskID}
+
+The delete command deletes a task from the JSON file based on the specified task ID. Each task has its own unique ID, of which you can use to delete a task from the JSON file by specifying the ID.
+If the provided ID does not exist or is not correct, an error message will be displayed.
+
+
+
+Command: list
+Usage:
+nei list
+
+Basically, it displays all the tasks that are currently stored in the JSON file.
+
+
+Command: listc
+Usage:
+nei listc
+
+This command is pretty similiar to the previous one, although, this one filters the tasks to display only tasks with the status "Completed"
+So, when you use that command, the tasks list will be filtered to display only tasks with the status "Completed".
+The c in listc short for completed
+
+
+Command: listnd
+Usage:
+nei listnd
+
+This command is also similiar to the last two commands. To keep this short, this command displays tasks with the status "Not-Done"
+The nd in listnd is short for not done.
+
+Command: listp
+Usage:
+nei listp
+This command will display tasks marked with the status "In-Progress"
+The p in listp is short for In progress.
+
+Command: markc
+Usage:
+nei markc {taskID}
+
+As you might've already seen, a single task consists of 6 properties. 
+ID
+Task name
+Description
+Created At
+Updated At
+Status
+
+The c in markc is short for completed, so When the markc command is used alongside a valid task ID. It marks a task's status completed.
+Then the Updated At field gets updated with your systems date.
+
+
+Command: markp
+Usage:
+nei markp {taskID}
+
+This command is also familiar to markc. Though, this command marks a task's status with a In-Progress status.
+The p in markp is short for In progress.
+
+
+Command: update
+Usage:
+nei update {taskID} {TaskName}
+
+This command updates a already existing task, with the provided argument based on the ID.
