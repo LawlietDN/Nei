@@ -41,6 +41,8 @@ namespace cli
         if(argv[1] != nullptr && std::string(argv[1]) == "--help") { Utility::Helper::displayHelpCommand(); return {};}
         if(argv[1] != nullptr && std::string(argv[1]) == "list") { json::parse::displayTaskList(); return {};}
         if(argv[1] != nullptr && std::string(argv[1]) == "listc") { json::parse::displayCompletedTasks(); return {};}
+        if(argv[1] != nullptr && std::string(argv[1]) == "listp") { json::parse::displayInProgressTasks(); return {};}
+        if(argv[1] != nullptr && std::string(argv[1]) == "listnd") { json::parse::displayNotDoneTasks(); return {};}
 
         if(!cli::ArgumentParse::isCommandExists(args, commands)) { return{};}
 

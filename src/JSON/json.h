@@ -31,5 +31,7 @@ namespace json
         static void markpTask(std::string const& argument, int taskID);
         static void markdTask(std::string const& argument, int taskID);
         static void displayCompletedTasks();
+        static void displayInProgressTasks();
+        static void displayNotDoneTasks();
     };
 }

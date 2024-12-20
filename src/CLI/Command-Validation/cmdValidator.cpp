@@ -72,8 +72,6 @@ namespace cmdHandle
                 }
         }
 
-
-        std::cout << "Validated Arguments: ";
         for (const auto& arg : processedArguments)
         {
         std::cout << arg << " ";

@@ -321,11 +321,137 @@
          }
 
 
-         void json::parse::displayCompletedTasks()
-         {
-            
-         }
+        void json::parse::displayCompletedTasks()
+        {
+            std::ifstream file(json::parse::fileName);
+            std::string line, currentTask;
+            std::vector<std::string> completedTasks; 
+            bool isCompleted = false;                
+
+            while (std::getline(file, line))
+            {
+                if (line.find("{") != std::string::npos)
+                {
+                    currentTask.clear();
+                }
+                currentTask += line + "\n"; 
+
+                if (line.find("\"Status\": \"Completed\"") != std::string::npos)
+                {
+                    isCompleted = true;
+                }
+
+                if (line.find("}") != std::string::npos)
+                {
+                    if (isCompleted)
+                    {
+                        completedTasks.push_back(currentTask); 
+                    }
+                    isCompleted = false; 
+                }
+            }
+
+            file.close();
+
+            std::cout << "[\n";
+            for (size_t i = 0; i < completedTasks.size(); ++i)
+            {
+                std::cout << completedTasks[i];
+                if (i != completedTasks.size() - 1)
+                {
+                    std::cout << ",\n";
+                }
+            }
+            std::cout << "\n]" << std::endl;
+        }
 
 
+        void json::parse::displayInProgressTasks()
+        {
+            std::ifstream file(json::parse::fileName);
+            std::string line, currentTask;
+            std::vector<std::string> completedTasks; 
+            bool isCompleted = false;                
+
+            while (std::getline(file, line))
+            {
+                if (line.find("{") != std::string::npos)
+                {
+                    currentTask.clear();
+                }
+                currentTask += line + "\n"; 
+
+                if (line.find("\"Status\": \"In-Progress\"") != std::string::npos)
+                {
+                    isCompleted = true;
+                }
+
+                if (line.find("}") != std::string::npos)
+                {
+                    if (isCompleted)
+                    {
+                        completedTasks.push_back(currentTask); 
+                    }
+                    isCompleted = false; 
+                }
+            }
+
+            file.close();
+
+            std::cout << "[\n";
+            for (size_t i = 0; i < completedTasks.size(); ++i)
+            {
+                std::cout << completedTasks[i];
+                if (i != completedTasks.size() - 1)
+                {
+                    std::cout << ",\n";
+                }
+            }
+            std::cout << "\n]" << std::endl;
+        }
+
+        void json::parse::displayNotDoneTasks()
+        {
+            std::ifstream file(json::parse::fileName);
+            std::string line, currentTask;
+            std::vector<std::string> completedTasks; 
+            bool isCompleted = false;                
+
+            while (std::getline(file, line))
+            {
+                if (line.find("{") != std::string::npos)
+                {
+                    currentTask.clear();
+                }
+                currentTask += line + "\n"; 
+
+                if (line.find("\"Status\": \"Not-Done\"") != std::string::npos)
+                {
+                    isCompleted = true;
+                }
+
+                if (line.find("}") != std::string::npos)
+                {
+                    if (isCompleted)
+                    {
+                        completedTasks.push_back(currentTask); 
+                    }
+                    isCompleted = false; 
+                }
+            }
+
+            file.close();
+
+            std::cout << "[\n";
+            for (size_t i = 0; i < completedTasks.size(); ++i)
+            {
+                std::cout << completedTasks[i];
+                if (i != completedTasks.size() - 1)
+                {
+                    std::cout << ",\n";
+                }
+            }
+            std::cout << "\n]" << std::endl;
+        }
     }
 
