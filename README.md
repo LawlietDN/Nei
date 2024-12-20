@@ -17,6 +17,9 @@
     ```
 
 3. Running:
+
+    ```bash
     nei add "Homework assignment to do" -desc "At 10PM"
     nei delete 0.
     nei --help for a detailed explanation of each command.
+    ```
