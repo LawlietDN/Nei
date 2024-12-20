@@ -44,6 +44,7 @@ namespace util
             json::parse::parseToJSON(TaskData);
 
             }
+            return 0;
     }
 
     
