@@ -24,8 +24,8 @@
                 "        \"ID\": " + std::to_string(TaskData.taskID) + ",\n"
                 "        \"Task Name\": \"" + TaskData.task + "\",\n"
                 "        \"Description\": \"" + TaskData.description + "\",\n"
-                "        \"Created_at\": \"" + TaskData.createdAt + "\",\n"
-                "        \"Updated_at\": \"" + TaskData.updatedAt + "\",\n"
+                "        \"Created At\": \"" + TaskData.createdAt + "\",\n"
+                "        \"Updated At\": \"" + TaskData.updatedAt + "\",\n"
                 "        \"Status\": \"" + TaskData.status + "\"\n"
                 "    }";
 
@@ -284,7 +284,7 @@
                 {
                       if (taskJSONFile[i].find("\"ID\": " + std::to_string(taskID)) != std::string::npos)
                       {
-                         taskJSONFile[i + 4] = "        \"Updated at\": \"" + Utility::Helper::getCurrentTime() + "\",";
+                         taskJSONFile[i + 4] = "        \"Updated At\": \"" + Utility::Helper::getCurrentTime() + "\",";
                          taskJSONFile[i + 5] = "        \"Status\": \"""In-Progress""\"";
                         break; 
                      }
@@ -306,7 +306,7 @@
                 {
                       if (taskJSONFile[i].find("\"ID\": " + std::to_string(taskID)) != std::string::npos)
                       {
-                         taskJSONFile[i + 4] = "        \"Updated at\": \"" + Utility::Helper::getCurrentTime() + "\",";
+                         taskJSONFile[i + 4] = "        \"Updated At\": \"" + Utility::Helper::getCurrentTime() + "\",";
                          taskJSONFile[i + 5] = "        \"Status\": \"""Completed""\"";
                         break; 
                      }
