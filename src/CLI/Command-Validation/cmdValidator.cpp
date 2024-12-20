@@ -72,10 +72,7 @@ namespace cmdHandle
                 }
         }
 
-        for (const auto& arg : processedArguments)
-        {
-        std::cout << arg << " ";
-        }
+        
             return processedArguments;
 
     }
